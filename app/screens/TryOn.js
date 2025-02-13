@@ -12,7 +12,7 @@ export default Homepage = () => {
 
     const camera = useRef(null);
     const devices = Camera.getAvailableCameraDevices()
-    const device = getCameraDevice(devices, 'back')
+    const device = getCameraDevice(devices, 'front')
   
     const [showCamera, setShowCamera] = useState(true);
     const [imageSource, setImageSource] = useState('');
@@ -49,6 +49,7 @@ export default Homepage = () => {
                 device={device}
                 isActive={showCamera}
                 photo={true}
+                outputOrientation='portrait'
               />
     
               <View style={styles.buttonContainer}>
