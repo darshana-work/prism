@@ -9,16 +9,18 @@ import {
 } from 'react-native';
 import React, {useRef} from 'react';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import Video, {VideoRef} from 'react-native-video';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {
   useNavigation,
 } from '@react-navigation/native';
 
+// import Video, {VideoRef} from 'react-native-video';
+
+
 export default Homepage = () => {
   console.log('Homepage');
-  const videoRef = useRef(VideoRef);
+  // const videoRef = useRef(VideoRef);
   const navigation = useNavigation();
   const background = require('../../assets/background.mp4');
   const prismBackground = require('../../assets/prismtexture.jpg');
@@ -105,15 +107,15 @@ export default Homepage = () => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={['top']}>
         <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
-          <View>
+          {/* <View>
             <Video
               ref={videoRef}
               source={background}
-              repeat={true}
+              // repeat={true}
               resizeMode={'cover'}
               style={styles.backgroundVideo}
             />
-          </View>
+          </View> */}
           <View style={{height: 200, width: '100%'}}>
             <ImageBackground
               resizeMode={'stretch'} // or cover

@@ -94,7 +94,7 @@ export default Details = () => {
               </Text>
               <View style={styles.tryOnContainer}>
                 <Text style={styles.tryOn}>Try it out on your face</Text>
-                <TouchableOpacity style={styles.tryOnButton}>
+                <TouchableOpacity style={styles.tryOnButton} onPress={()=> {navigation.navigate('tryon')}}>
                   <Text style={styles.tryOnText}>3D Try On</Text>
                 </TouchableOpacity>
               </View>

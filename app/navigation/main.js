@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import Details from '../screens/homepage/details';
 import Homepage from '../screens/homepage/Homepage';
+import TryOn from '../screens/TryOn';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -21,6 +22,11 @@ const Stack = createStackNavigator();
           name="details"
           component={Details}
           options={{headerShown: true, title: '', headerTintColor: '#000043' ,headerStyle: {backgroundColor: 'white', borderBottomColor: '#000043'},headerTitleStyle: {letterSpacing: 2, fontSize: 25, fontWeight: '800', fontFamily: 'Roboto'}}}
+        />
+        <Stack.Screen
+          name="tryon"
+          component={TryOn}
+          options={{headerShown: true, title: 'Try on', headerTintColor: '#000043' ,headerStyle: {backgroundColor: 'white', borderBottomColor: '#000043'},headerTitleStyle: { fontSize: 20, fontWeight: '800', fontFamily: 'Roboto'}}}
         />
       </Stack.Navigator>
     );
