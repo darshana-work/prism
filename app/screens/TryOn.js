@@ -1,4 +1,15 @@
-import { Camera, getCameraDevice } from 'react-native-vision-camera'
+import {
+  Camera,
+  getCameraDevice,
+  runAsync,
+  useCameraDevice,
+  useFrameProcessor
+} from 'react-native-vision-camera'
+import {
+  Face,
+  FaceDetectionOptions,
+  useFaceDetector,
+} from 'react-native-vision-camera-face-detector'
 import {
     Image,
     StyleSheet,
@@ -8,6 +19,8 @@ import {
 } from 'react-native';
 import React, {useEffect, useRef, useState} from'react';
 
+import { Worklets } from 'react-native-worklets-core'
+
 export default Homepage = () => {
 
     const camera = useRef(null);
@@ -16,6 +29,13 @@ export default Homepage = () => {
   
     const [showCamera, setShowCamera] = useState(true);
     const [imageSource, setImageSource] = useState('');
+
+    const faceDetectionOptions = useRef<FaceDetectionOptions>( {
+      // detection options
+    } ).current
+    const { detectFaces } = useFaceDetector( faceDetectionOptions )
+
+  
   
     useEffect(() => {
       async function getPermission() {
@@ -37,7 +57,18 @@ export default Homepage = () => {
     if (device == null) {
       return <Text>Camera not available</Text>;
     }
-  
+// -----------------------------
+    const handleDetectedFaces = Worklets.createRunOnJS( face => { 
+      console.log( 'handle detected face', face )
+    })
+    const frameProcessor = useFrameProcessor((frame) => {
+      'worklet'
+        // const faces = scanFaces(frame)
+        const faces = detectFaces(frame)
+        handleDetectedFaces(faces)
+        console.log('faces detected', faces)
+    }, [])
+
 
     return (
         <View style={styles.container}>
@@ -50,6 +81,9 @@ export default Homepage = () => {
                 isActive={showCamera}
                 photo={true}
                 outputOrientation='portrait'
+                frameProcessor={frameProcessor}
+                
+                // faceDetectionCallback={(arg)=>{console.log(arg)}}
               />
     
               <View style={styles.buttonContainer}>
